@@ -1,0 +1,21 @@
+apply plugin: "java";
+apply plugin: "eclipse";
+
+group = "blue.endless.advent";
+archivesBaseName = "AdventOfCode2022";
+version = "1.0.0";
+
+sourceCompatibility = 1.17;
+targetCompatibility = 1.17;
+
+repositories {
+	mavenCentral();
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+
+dependencies {
+	testImplementation "junit:junit:4.12";
+}
