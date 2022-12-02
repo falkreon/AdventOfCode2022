@@ -8,8 +8,10 @@ public class AdventOfCode {
 		}
 		
 		switch(args[0]) {
-		case "1" -> new Day1().run();
+		case "1"  -> new Day1().run();
 		case "1b" -> new Day1().runPartB();
+		case "2"  -> new Day2().run();
+		case "2b" -> new Day2().runPartB();
 		}
 	}
 }
