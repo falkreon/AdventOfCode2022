@@ -12,6 +12,8 @@ public class AdventOfCode {
 		case "1b" -> new Day1().runPartB();
 		case "2"  -> new Day2().run();
 		case "2b" -> new Day2().runPartB();
+		case "3"  -> new Day3().run();
+		case "3b" -> new Day3().runPartB();
 		}
 	}
 }
