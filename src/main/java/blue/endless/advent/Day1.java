@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class Day1 {
 	public void run() {
+		
 		try {
 			List<String> lines = Files.readAllLines(Path.of("data", "day1.txt"));
 			List<Elf> elves = new ArrayList<>();
