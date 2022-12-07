@@ -5,7 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Day7 {
@@ -68,11 +73,42 @@ public class Day7 {
 	}
 	
 	public void runPartB() {
+		//runPartB(AdventOfCode.processSampleInput(SAMPLE_INPUT));
 		
+		try {
+			runPartB(Files.readAllLines(Path.of("data", "day7.txt")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void runPartB(List<String> input) {
+		DirectoryNode root = DirectoryNode.fromTraversal(input);
 		
+		int totalDiskSpace = 70_000_000;
+		int spaceNeeded = 30_000_000;
+		int spaceUsed = root.size();
+		int currentlyFreeSpace = totalDiskSpace - spaceUsed;
+		int needsToBeFreed = spaceNeeded - currentlyFreeSpace;
+		
+		System.out.println("Used Space: "+spaceUsed+" / "+totalDiskSpace+" ("+(int) ((spaceUsed/(float) totalDiskSpace)*100)+"%)");
+		System.out.println("Free Space: "+currentlyFreeSpace);
+		System.out.println("Remaining to be Freed: "+needsToBeFreed);
+		
+		Set<DirectoryNode> results = new HashSet<>();
+		root.findNodes(
+				(it)->(it.type==NodeType.DIRECTORY) && (it.size() >= needsToBeFreed),
+				results
+				);
+		
+		System.out.println("Candidates: "+results);
+		
+		Optional<DirectoryNode> smallestFit = results.stream().collect(Collectors.minBy((a,b)->Integer.compare(a.size(), b.size())));
+		
+		smallestFit.ifPresentOrElse(
+				(it)->System.out.println("Directory to free: "+it),
+				()->System.out.println("Couldn't find a directory to free.")
+				);
 	}
 	
 	public static enum NodeType {
@@ -100,6 +136,13 @@ public class Day7 {
 				result += n.size();
 			}
 			return result;
+		}
+		
+		public void findNodes(Predicate<DirectoryNode> predicate, Collection<DirectoryNode> result) {
+			if (predicate.test(this)) result.add(this);
+			for(DirectoryNode node : children) {
+				node.findNodes(predicate, result);
+			}
 		}
 		
 		public String list() {
@@ -134,7 +177,7 @@ public class Day7 {
 			switch(type) {
 				case UNKNOWN -> result = result + "unknown)";
 				case FILE -> result = result + "file, size="+size+")";
-				case DIRECTORY -> result = result + "dir)";
+				case DIRECTORY -> result = result + "dir, size="+size()+")";
 			}
 			return result;
 		}
@@ -180,13 +223,13 @@ public class Day7 {
 				if (s.startsWith("$ cd ")) {
 					String to = s.substring(5);
 					if (to.equals("/")) {
-						System.out.println("Going to root");
+						//System.out.println("Going to root");
 						curNode = result;
 					} else if (to.equals("..")) {
-						System.out.println("Going up a level...");
+						//System.out.println("Going up a level...");
 						curNode = curNode.parent;
 					} else {
-						System.out.println("Switching to \""+to+"\"");
+						//System.out.println("Switching to \""+to+"\"");
 						DirectoryNode switchTo = curNode.ensureSubdir(to);
 						curNode = switchTo;
 					}
@@ -207,7 +250,7 @@ public class Day7 {
 						if (parts.length==2) {
 							int size = Integer.parseInt(parts[0]);
 							String name = parts[1];
-							System.out.println("Recording file: "+name);
+							//System.out.println("Recording file: "+name);
 							curNode.ensureFile(name, size);
 						} else {
 							System.out.println(s);
