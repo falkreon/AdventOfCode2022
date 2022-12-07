@@ -97,7 +97,7 @@ public class Day6 {
 		//runPartB("mjqjpqmgbljsphdztnvjfqwrcgsmlb");
 		try {
 			String input = Files.readString(Path.of("data", "day6.txt"));
-			runPartB(input);
+			run(input);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
