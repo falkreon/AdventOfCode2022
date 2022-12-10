@@ -29,6 +29,8 @@ public class AdventOfCode {
 		case "8b" -> new Day8().runPartB();
 		case "9"  -> new Day9().run();
 		case "9b" -> new Day9().runPartB();
+		case "10" -> new Day10().run();
+		case "10b"-> new Day10().runPartB();
 		
 		default -> throw new IllegalArgumentException();
 		}
