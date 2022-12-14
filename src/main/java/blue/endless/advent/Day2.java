@@ -1,57 +1,43 @@
 package blue.endless.advent;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Day2 {
-	public void run() {
-		try {
-			List<String> lines = Files.readAllLines(Path.of("data", "day2.txt"));
+import blue.endless.advent.util.Day;
+
+public class Day2 extends Day {
+	
+	@Override
+	public void partOne(List<String> lines) {
+		int totalScore = 0;
+		for(String s : lines) {
+			String[] parts = s.split("\\s");
+			Move opponent = Move.of(parts[0]);
+			Move mine = Move.of(parts[1]);
 			
-			int totalScore = 0;
-			for(String s : lines) {
-				String[] parts = s.split("\\s");
-				Move opponent = Move.of(parts[0]);
-				Move mine = Move.of(parts[1]);
-				
-				int score = score(opponent, mine);
-				totalScore += score;
-				System.out.println(""+opponent+", "+mine+" -> "+score+" ( "+totalScore+" )");
-			}
-			
-			System.out.println("Final score: "+totalScore);
-			
-		} catch (IOException ex) {
-			ex.printStackTrace();
+			int score = score(opponent, mine);
+			totalScore += score;
+			System.out.println(""+opponent+", "+mine+" -> "+score+" ( "+totalScore+" )");
 		}
+		
+		System.out.println("Final score: "+totalScore);
 	}
 	
-	public void runPartB() {
-		try {
-			List<String> lines = Files.readAllLines(Path.of("data", "day2.txt"));
+	public void partTwo(List<String> lines) {
+		int totalScore = 0;
+		for(String s : lines) {
+			String[] parts = s.split("\\s");
+			Move opponent = Move.of(parts[0]);
+			Outcome outcome = Outcome.of(parts[1]);
+			Move mine = createOutcome(opponent, outcome);
 			
-			int totalScore = 0;
-			for(String s : lines) {
-				String[] parts = s.split("\\s");
-				Move opponent = Move.of(parts[0]);
-				Outcome outcome = Outcome.of(parts[1]);
-				Move mine = createOutcome(opponent, outcome);
-				
-				int score = score(opponent, mine);
-				totalScore += score;
-				System.out.println(""+opponent+", "+mine+" -> "+score+" ( "+totalScore+" )");
-			}
-			
-			System.out.println("Final score: "+totalScore);
-			
-		} catch (IOException ex) {
-			ex.printStackTrace();
+			int score = score(opponent, mine);
+			totalScore += score;
+			System.out.println(""+opponent+", "+mine+" -> "+score+" ( "+totalScore+" )");
 		}
+		
+		System.out.println("Final score: "+totalScore);
 	}
 	
 	public int score(Move them, Move me) {
@@ -169,5 +155,19 @@ public class Day2 {
 			}
 			throw new IllegalArgumentException();
 		}
+	}
+
+	@Override
+	protected String getRawSampleData() {
+		return """
+				A Y
+				B X
+				C Z
+				""";
+	}
+
+	@Override
+	protected String getDataFileName() {
+		return "day2.txt";
 	}
 }
