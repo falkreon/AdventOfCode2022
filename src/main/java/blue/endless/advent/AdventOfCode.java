@@ -8,7 +8,7 @@ import blue.endless.advent.util.Day;
 public class AdventOfCode {
 	public static Day[] Calendar = {
 		new Day1(), new Day2(), null, null, null, null, null,
-		null, null, null, null, null, new Day13(), null,
+		null, null, null, null, null, new Day13(), new Day14(),
 	};
 	
 	public static void main(String[] args) {
