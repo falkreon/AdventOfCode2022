@@ -27,7 +27,7 @@ public class Display extends JFrame {
 		this.getContentPane().add(gridPanel);
 	}
 	
-	public void setGrid(ArrayGrid<?> grid) {
+	public void setGrid(Grid<?> grid) {
 		gridPanel.setGrid(grid);
 	}
 	
@@ -52,7 +52,7 @@ public class Display extends JFrame {
 	
 	private static class GridPanel extends JPanel {
 		private static final long serialVersionUID = -3636721400626995706L;
-		private ArrayGrid<?> grid = null;
+		private Grid<?> grid = null;
 		private long tickPeriod = (long) ((1/20.0) * 1_000);
 		private long lastTick = 0L;
 		private long fractionalTicks = 0L;
@@ -68,7 +68,7 @@ public class Display extends JFrame {
 			tickPeriod = (long) ((1/(double)perSecond) * 1_000);
 		}
 		
-		public void setGrid(ArrayGrid<?> grid) {
+		public void setGrid(Grid<?> grid) {
 			this.grid = grid;
 		}
 		

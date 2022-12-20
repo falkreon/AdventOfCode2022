@@ -3,7 +3,7 @@ package blue.endless.advent.util;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class ArrayGrid<T> {
+public class ArrayGrid<T> implements Grid<T> {
 	private T[] data;
 	private int width;
 	private int height;
@@ -23,30 +23,26 @@ public class ArrayGrid<T> {
 		this.height = height;
 	}
 	
+	@Override
 	public int getWidth() {
 		return width;
 	}
 	
+	@Override
 	public int getHeight() {
 		return height;
 	}
 	
+	@Override
 	public T get(int x, int y) {
 		if (x<0 || y<0 || x>=width || y>=height) return defaultValue;
 		return data[y * width + x];
 	}
 	
-	public T get(Vec2i vec) {
-		return get(vec.x(), vec.y());
-	}
-	
+	@Override
 	public void set(int x, int y, T value) {
 		if (x<0 || y<0 || x>=width || y>=height) return;
 		data[y * width + x] = value;
-	}
-	
-	public void set(Vec2i vec, T value) {
-		set(vec.x(), vec.y(), value);
 	}
 	
 	public void elementToString(Function<T, String> func, boolean commas) {
@@ -54,12 +50,26 @@ public class ArrayGrid<T> {
 		this.commas = commas;
 	}
 	
+	@Override
 	public void clear(int x, int y) {
 		set(x, y, defaultValue);
 	}
 	
+	@Override
 	public void clear() {
 		Arrays.fill(data, defaultValue);
+	}
+	
+	public ArrayGrid<T> copy() {
+		ArrayGrid<T> result = new ArrayGrid<T>(width, height);
+		
+		for(int y=0; y<height; y++) {
+			for(int x=0; x<width; x++) {
+				result.set(x, y, this.get(x, y));
+			}
+		}
+		
+		return result;
 	}
 	
 	@Override

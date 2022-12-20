@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import blue.endless.advent.util.ArrayGrid;
 import blue.endless.advent.util.Day;
 import blue.endless.advent.util.Range;
 import blue.endless.advent.util.Vec2i;
 import blue.endless.jankson.annotation.Nullable;
+
+import static blue.endless.advent.util.Strings.*;
 
 public class Day15 extends Day {
 
@@ -176,11 +177,6 @@ public class Day15 extends Day {
 		}
 		
 		return false;
-	}
-	
-	public static String removePrefix(String s, String toRemove) {
-		if (!s.startsWith(toRemove)) throw new IllegalArgumentException();
-		return s.substring(toRemove.length());
 	}
 	
 	//public int getWidthAt(int y, List<Sensor> beacons) {
