@@ -11,7 +11,9 @@ public abstract class Day {
 	public abstract void partTwo(List<String> input);
 	
 	protected abstract String getRawSampleData();
-	protected abstract String getDataFileName();
+	protected String getDataFileName() {
+		return this.getClass().getSimpleName().toLowerCase()+".txt";
+	}
 	
 	public List<String> getSampleData() {
 		String[] lineArray = getRawSampleData().split("\\n");
