@@ -9,7 +9,7 @@ public class AdventOfCode {
 	public static Day[] Calendar = {
 		new Day1(), new Day2(), null, null, null, null, null,
 		null, null, null, null, null, new Day13(), new Day14(),
-		new Day15(), new Day16(), new Day17(), new Day18(), new Day19(), null, null,
+		new Day15(), new Day16(), new Day17(), new Day18(), new Day19(), new Day20(), new Day21(),
 	};
 	
 	public static void main(String[] args) {
