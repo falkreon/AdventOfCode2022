@@ -9,6 +9,20 @@ import java.util.Map;
 
 import blue.endless.advent.util.Day;
 
+/**
+ * <p>The real intended strat here is that the monkeys form an expression tree, and you solve the tree from the bottom
+ * up. Then, when the problem gets flipped around, you evaluate the elements in the path between the root and the human.
+ * 
+ * <p>Instead, the first thing I do when I get the data in my hands is reduce it all at once by ping-ponging deferred
+ * operations (whose operands are yet-unknown) between two work queues.
+ * 
+ * <p>For part two, after removing root and humn, I again reduce the tree as much as possible. Then I use a recursive
+ * algorithm to reach backwards from the root towards all the leaves at once, filling in data gained from root. The way
+ * the problem is designed, a value is never quite satisfied until you reach a leaf node (a monkey that yells a constant
+ * number). But, since we know humn is a leaf node, we can just keep reaching back until we've solved a leaf node. When
+ * the leaf node we've solved is humn, we win.
+ */
+
 public class Day21 extends Day {
 
 	@Override
